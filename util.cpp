@@ -11,20 +11,57 @@ std::string convToLower(std::string src)
     return src;
 }
 
+bool isISBN(const string& word)
+{
+    int dashCount = 0;
+    for (char c : word) {
+        if (c == '-') dashCount++;
+        else if (!isdigit(c)) return false; // If it's not a digit or dash, it's not an ISBN
+    }
+    return dashCount >= 2;
+}
+
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    set<string> keywords;
 
+    // Check if the entire input is an ISBN
+    if (isISBN(rawWords)) {
+        keywords.insert(convToLower(rawWords));
+        return keywords;
+    }
 
+    string word;
+    stringstream ss(rawWords);
 
-
-
-
-
-
-
-
+    while (ss >> word)
+    {
+        string token;
+        for (size_t pos = 0; pos < word.length(); ++pos)
+        {
+            if (!ispunct(word[pos])) // If the character is not a punctuation, add it to token.
+            {
+                token += word[pos];
+            }
+            else if (token.length() > 1) // If punctuation is encountered, add the token if it's valid.
+            {
+                keywords.insert(convToLower(token));
+                token.clear(); // Clear the token for the next set of characters.
+            }
+            else // If punctuation is found but token is not valid, just reset token without adding.
+            {
+                token.clear();
+            }
+        }
+        if (token.length() > 1) // Check for any remaining token after the last punctuation.
+        {
+            keywords.insert(convToLower(token));
+        }
+    }
+    
+    return keywords;
 }
 
 /**************************************************

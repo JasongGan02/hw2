@@ -11,28 +11,12 @@ std::string convToLower(std::string src)
     return src;
 }
 
-bool isISBN(const string& word)
-{
-    int dashCount = 0;
-    for (char c : word) {
-        if (c == '-') dashCount++;
-        else if (!isdigit(c)) return false; // If it's not a digit or dash, it's not an ISBN
-    }
-    return dashCount >= 2;
-}
 
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
     set<string> keywords;
-
-    // Check if the entire input is an ISBN
-    if (isISBN(rawWords)) {
-        keywords.insert(convToLower(rawWords));
-        return keywords;
-    }
-
     string word;
     stringstream ss(rawWords);
 

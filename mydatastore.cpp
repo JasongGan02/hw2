@@ -9,7 +9,19 @@ using namespace std;
 void MyDataStore::addProduct(Product* p)
 {
     set<string> productKeywords = p->keywords();
-    keywords_.insert(productKeywords.begin(), productKeywords.end());
+    for (std::set<string>::iterator it = productKeywords.begin(); it != productKeywords.end(); ++it)
+    {
+        if (keywords_.find(*it) == keywords_.end()) // not find the keyword
+        {
+            set<Product*> newSet;
+            newSet.insert(p);
+            keywords_[*it] =  newSet;
+        }
+        else
+        {
+            keywords_[*it].insert(p);
+        }
+    }   
     products_.insert(p);
 }
 
@@ -28,7 +40,33 @@ void MyDataStore::addUser(User* u)
  */
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type)
 {
+    std::set<Product*> resultProducts;
+
+    for (std::vector<std::string>::iterator it = terms.begin(); it != terms.end(); ++it)
+    {
+        if (keywords_.find(*it) != keywords_.end())
+        {
+            std::set<Product*> curProducts = keywords_[*it];
+            if (resultProducts.size() == 0)
+            {
+                resultProducts.insert(curProducts.begin(), curProducts.end());
+            }
+            else
+            {
+                if (type == 0) //And
+                {
+                    resultProducts = setIntersection(resultProducts, curProducts);
+                }
+                else //Or
+                {
+                    resultProducts = setUnion(resultProducts, curProducts);
+                }
+            }
+        }       
+    }
     
+    std::vector<Product*> resultVector(resultProducts.begin(), resultProducts.end());
+    return resultVector;
 }
 
 /**
@@ -36,5 +74,5 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
  */
 void MyDataStore::dump(std::ostream& ofile)
 {
-
+    
 }

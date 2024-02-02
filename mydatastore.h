@@ -3,6 +3,7 @@
 
 #include "datastore.h"
 #include <set>
+#include <map>
 #include <vector>
 #include <iostream>
 
@@ -19,7 +20,8 @@ public:
 private:
     std::set<Product*> products_;
     std::set<User*> users_;
-    std::set<std::string> keywords_;
+    std::map<std::string, std::set<Product*>> keywords_;
+    std::map<User*, std::vector<Product*>> carts_;
 };
 
 #endif

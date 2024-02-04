@@ -44,7 +44,7 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
     for (std::vector<std::string>::iterator it = terms.begin(); it != terms.end(); ++it)
     {
-        if (keywords_.find(*it) != keywords_.end())
+        if (keywords_.find(*it) != keywords_.end()) //keyword exists
         {
             std::set<Product*> curProducts = keywords_[*it];
             if (resultProducts.size() == 0)
@@ -74,5 +74,9 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
  */
 void MyDataStore::dump(std::ostream& ofile)
 {
-    
+    ofile << "<products>" << endl;
+    for (set<Product*>::iterator it = products_.begin(); it != products_.end(); ++it)
+    {
+        //ofile << it->dump() 
+    }
 }

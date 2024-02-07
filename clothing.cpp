@@ -1,5 +1,7 @@
 #include "clothing.h"
 #include "util.h"
+#include <sstream> // For std::ostringstream
+#include <iomanip> 
 using namespace std;
 
 std::set<std::string> Clothing::keywords() const
@@ -12,8 +14,10 @@ std::set<std::string> Clothing::keywords() const
 
 std::string Clothing::displayString() const 
 {
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(2) << price_;
     string output = name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + 
-    "\n"  + std::to_string(price_) + "\n" + std::to_string(qty_) + " left.";
+    "\n"  + stream.str() + "\n" + std::to_string(qty_) + " left.";
     return output;
 }
 

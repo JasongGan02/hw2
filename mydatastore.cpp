@@ -19,7 +19,7 @@ void MyDataStore::addProduct(Product* p)
         {
             set<Product*> newSet;
             newSet.insert(p);
-            keywords_[*it] =  newSet;
+            keywords_[*it] = newSet;
         }
         else
         {
@@ -102,14 +102,16 @@ void MyDataStore::dump(std::ostream& ofile)
 void MyDataStore::displayCart(string u)
 {
     std::queue<Product*> tempQueue;
+    int index = 1;
     while (!carts_[users_[u]].empty()) 
     {
         Product* product = carts_[users_[u]].front();
         carts_[users_[u]].pop();
-
+        std::cout << "Item " << index << endl;
         std::cout << product->displayString() << std::endl;
 
         tempQueue.push(product);
+        index++;
     }
 
     carts_[users_[u]] = tempQueue;

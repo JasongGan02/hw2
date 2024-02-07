@@ -40,7 +40,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/work/hw/hw2/hw2_tests/testing_utils/kwsys/cmake_install.cmake")
-  include("/work/hw/hw2/hw2_tests/testing_utils/libperf/cmake_install.cmake")
 
 endif()
 

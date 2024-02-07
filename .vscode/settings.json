@@ -96,6 +96,7 @@
         "forward_list": "cpp",
         "random": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "numeric": "cpp"
     }
 }

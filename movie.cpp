@@ -1,18 +1,23 @@
 #include "movie.h"
 #include "util.h"
+#include <sstream> // For std::ostringstream
+#include <iomanip>
 using namespace std;
 
 std::set<std::string> Movie::keywords() const
 {
     set<string> keywords = parseStringToWords(name_);
-    keywords.insert(genre_);
+    keywords.insert(convToLower(genre_));
     return keywords;
 }
 
 std::string Movie::displayString() const 
 {
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(2) << price_;
+
     string output = name_ + "\n" + "Genre: " + genre_ + " Rating: " + rating_ + 
-    "\n"  + std::to_string(price_) + "\n" + std::to_string(qty_) + " left.";
+    "\n"  + stream.str() + "\n" + std::to_string(qty_) + " left.";
     return output;
 }
 

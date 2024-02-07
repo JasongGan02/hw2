@@ -1,5 +1,5 @@
 #include "util.h"
-#include <mydatastore.h>
+#include "mydatastore.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ void MyDataStore::addProduct(Product* p)
     set<string> productKeywords = p->keywords();
     for (std::set<string>::iterator it = productKeywords.begin(); it != productKeywords.end(); ++it)
     {
-        if (keywords_.find(*it) == keywords_.end()) // not find the keyword
+        if (keywords_.find(*it) == keywords_.end()) // not find the keyword in datastore
         {
             set<Product*> newSet;
             newSet.insert(p);
@@ -21,8 +21,8 @@ void MyDataStore::addProduct(Product* p)
         {
             keywords_[*it].insert(p);
         }
-    }   
-    products_.insert(p);
+    } 
+    products_.insert(p);  
 }
 
 /**
@@ -30,7 +30,12 @@ void MyDataStore::addProduct(Product* p)
  */
 void MyDataStore::addUser(User* u)
 {
-    users_.insert(u);
+    if (users_.find(u->getName()) == users_.end())
+    {
+        users_[u->getName()] = u;
+        queue<Product*> newCart;
+        carts_[u] = newCart;
+    }
 }
 
 /**
@@ -77,6 +82,85 @@ void MyDataStore::dump(std::ostream& ofile)
     ofile << "<products>" << endl;
     for (set<Product*>::iterator it = products_.begin(); it != products_.end(); ++it)
     {
-        //ofile << it->dump() 
+        (*it)->dump(ofile);
+    }
+    ofile << "</products>" << endl;
+    ofile << "<users>" << endl;
+    for (map<string, User*>::iterator it = users_.begin(); it != users_.end(); ++it)
+    {
+
+        it->second->dump(ofile);
+    }
+    ofile << "</users>" << endl;
+}
+
+
+void MyDataStore::displayCart(string u)
+{
+    std::queue<Product*> tempQueue;
+    while (!carts_[users_[u]].empty()) 
+    {
+        Product* product = carts_[users_[u]].front();
+        carts_[users_[u]].pop();
+
+        std::cout << product->displayString() << std::endl;
+
+        tempQueue.push(product);
+    }
+
+    carts_[users_[u]] = tempQueue;
+
+}
+
+void MyDataStore::buyCart(string u)
+{
+    User* user = users_[u];
+    std::queue<Product*>& cart = carts_[user];
+    std::queue<Product*> tempQueue;
+
+    while (!cart.empty()) 
+    {
+        Product* product = cart.front();
+        cart.pop();
+
+        if (product->getQty() > 0 && user->getBalance() >= product->getPrice()) 
+        {
+            product->subtractQty(1);
+            user->deductAmount(product->getPrice());
+        } else 
+        {
+            tempQueue.push(product);
+        }
+    }
+
+    while (!tempQueue.empty()) 
+    {
+        cart.push(tempQueue.front());
+        tempQueue.pop();
     }
 }
+
+bool MyDataStore::isValidUser(string u)
+{
+    return users_.find(convToLower(u)) != users_.end();
+}
+void MyDataStore::addToCart(string u, Product* p)
+{
+    carts_[users_[u]].push(p);
+}
+
+MyDataStore::~MyDataStore() 
+{
+    for (std::set<Product*>::iterator it = products_.begin(); it != products_.end(); ++it) {
+        delete *it;
+    }
+    products_.clear();
+
+    for (std::map<std::string, User*>::iterator it = users_.begin(); it != users_.end(); ++it) {
+        delete it->second;
+    }
+    users_.clear();
+    keywords_.clear();
+    carts_.clear();
+}
+

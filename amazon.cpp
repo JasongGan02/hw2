@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <algorithm>
 #include "product.h"
+#include "mydatastore.h"
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -99,6 +100,52 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
+            else if ( cmd == "ADD"){
+                string username;
+                int hit_result_index = 0; 
+                ss >> username >> hit_result_index;
+                if (username.empty() || ds.isValidUser(username) || ss.fail() || hit_result_index <= 0 || hit_result_index > hits.size()) 
+                {
+                    cout << "Invalid request" << endl;
+                } 
+                else 
+                {
+                    username = convToLower(username);
+                    hit_result_index--; 
+                    Product* productToAdd = hits[hit_result_index];
+                    ds.addToCart(username, productToAdd);
+                }
+            }
+            else if ( cmd == "VIEWCART"){
+                string username;
+                if (ss>>username)
+                {
+                    if (username.empty() || ds.isValidUser(username))
+                    {
+                        cout << "Invalid username" << endl;
+                    }
+                    else
+                    {
+                        username = convToLower(username);
+                        ds.displayCart(username);
+                    }
+                }
+            }
+            else if ( cmd == "BUYCART"){
+                string username;
+                if (ss>>username)
+                {
+                    if (username.empty() || ds.isValidUser(username))
+                    {
+                        cout << "Invalid username" << endl;
+                    }
+                    else
+                    {
+                        username = convToLower(username);
+                        ds.buyCart(username);
+                    }
+                }
+            }
 	    /* Add support for other commands here */
 
 
@@ -110,6 +157,9 @@ int main(int argc, char* argv[])
         }
 
     }
+
+
+
     return 0;
 }
 

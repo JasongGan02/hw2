@@ -7,11 +7,11 @@
 #include <vector>
 #include <iostream>
 #include <queue>
-
+using namespace std;
 class MyDataStore : public DataStore {
 public:
     MyDataStore();
-    virtual ~MyDataStore() override;
+    virtual ~MyDataStore();
 
     void addProduct(Product* p) override;
     void addUser(User* u) override;

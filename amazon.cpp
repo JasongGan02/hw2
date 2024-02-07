@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
                 string username;
                 int hit_result_index = 0; 
                 ss >> username >> hit_result_index;
-                if (username.empty() || ds.isValidUser(username) || ss.fail() || hit_result_index <= 0 || hit_result_index > hits.size()) 
+                if (username.empty() || !ds.isValidUser(username) || ss.fail() || hit_result_index <= 0 || hit_result_index > hits.size()) 
                 {
                     cout << "Invalid request" << endl;
                 } 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
                 string username;
                 if (ss>>username)
                 {
-                    if (username.empty() || ds.isValidUser(username))
+                    if (username.empty() || !ds.isValidUser(username))
                     {
                         cout << "Invalid username" << endl;
                     }
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
                 string username;
                 if (ss>>username)
                 {
-                    if (username.empty() || ds.isValidUser(username))
+                    if (username.empty() || !ds.isValidUser(username))
                     {
                         cout << "Invalid username" << endl;
                     }

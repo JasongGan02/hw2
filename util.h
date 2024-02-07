@@ -5,7 +5,7 @@
 #include <iostream>
 #include <set>
 
-
+using namespace std;
 /** Complete the setIntersection and setUnion functions below
  *  in this header file (since they are templates).
  *  Both functions should run in time O(n*log(n)) and not O(n^2)
@@ -13,30 +13,30 @@
 template <typename T>
 std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
-    set<T> set;
+    std::set<T> result;
     for (typename set<T>::iterator it = s1.begin(); it != s1.end(); ++it)
     {
         if (s2.find(*it) != s2.end())
         {
-            set.insert(*it);
+            result.insert(*it);
         }
     }
-    return set;
+    return result;
 }
 template <typename T>
 std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 {
-    set<T> set;
+    std::set<T> result;
     for (typename set<T>::iterator it = s1.begin(); it != s1.end(); ++it)
     {
-        set.insert(*it);
+        result.insert(*it);
     }
 
     for (typename set<T>::iterator it = s2.begin(); it != s2.end(); ++it)
     {
-        set.insert(*it);
+        result.insert(*it);
     }
-    return set;
+    return result;
 }
 
 /***********************************************/

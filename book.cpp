@@ -1,4 +1,4 @@
-#include <book.h>
+#include "book.h"
 #include "util.h"
 using namespace std;
 
@@ -14,7 +14,7 @@ std::set<std::string> Book::keywords() const
 std::string Book::displayString() const 
 {
     string output = name_ + "\n" + "Author: " + author_ + " ISBN: " + isbn_ + 
-    "\n"  + std::to_string(price_) + std::to_string(qty_) + " left.";
+    "\n"  + std::to_string(price_) + "\n" + std::to_string(qty_) + " left.";
     return output;
 }
 

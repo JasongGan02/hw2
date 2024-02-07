@@ -13,7 +13,7 @@ amazon: $(OBJS)
 amazon.o: amazon.cpp db_parser.h mydatastore.h product_parser.h 
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c amazon.cpp
 mydatastore.o: mydatastore.cpp mydatastore.h datastore.h
-    $(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c mydatastore.cpp
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c mydatastore.cpp
 user.o: user.cpp user.h 
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c user.cpp
 db_parser.o: db_parser.cpp db_parser.h product.h product_parser.h user.h datastore.h 
@@ -25,13 +25,13 @@ product_parser.o: product_parser.cpp product_parser.h product.h
 util.o: util.cpp util.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c util.cpp
 book.o: book.cpp book.h product.h
-    $(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c book.cpp
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c book.cpp
 
 movie.o: movie.cpp movie.h product.h
-    $(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c movie.cpp
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c movie.cpp
 
 clothing.o: clothing.cpp clothing.h product.h
-    $(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c clothing.cpp
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c clothing.cpp
 
 
 clean:

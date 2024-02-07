@@ -1,4 +1,4 @@
-#include <movie.h>
+#include "movie.h"
 #include "util.h"
 using namespace std;
 
@@ -12,7 +12,7 @@ std::set<std::string> Movie::keywords() const
 std::string Movie::displayString() const 
 {
     string output = name_ + "\n" + "Genre: " + genre_ + " Rating: " + rating_ + 
-    "\n"  + std::to_string(price_) + std::to_string(qty_) + " left.";
+    "\n"  + std::to_string(price_) + "\n" + std::to_string(qty_) + " left.";
     return output;
 }
 

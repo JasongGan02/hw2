@@ -89,6 +89,13 @@
         "string_view": "cpp",
         "variant": "cpp",
         "queue": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "*.in": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "forward_list": "cpp",
+        "random": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }

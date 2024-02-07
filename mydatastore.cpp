@@ -3,6 +3,10 @@
 
 using namespace std;
 
+MyDataStore::MyDataStore() {
+
+}
+
 /**
  * Adds a product to the data store
  */

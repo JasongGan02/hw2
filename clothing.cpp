@@ -1,4 +1,4 @@
-#include <clothing.h>
+#include "clothing.h"
 #include "util.h"
 using namespace std;
 
@@ -13,7 +13,7 @@ std::set<std::string> Clothing::keywords() const
 std::string Clothing::displayString() const 
 {
     string output = name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + 
-    "\n"  + std::to_string(price_) + std::to_string(qty_) + " left.";
+    "\n"  + std::to_string(price_) + "\n" + std::to_string(qty_) + " left.";
     return output;
 }
 

@@ -1,3 +1,4 @@
 *.o
 amazon
 .vscode/settings.json
+hw2_tests/
